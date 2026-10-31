@@ -1,185 +1,217 @@
-# Awesome-Change-Data-Capture-CDC
-
-# Awesome-Change-Data-Capture-CDC
-
-**Top Change Data Capture CDC (Opensource) 🌟 Star if you like it! 🌟**
-
-
-
-**Curated List of SaaS Products & Open-Source GitHub Projects**
-
-*Focused on Log-Based Replication, Streaming Ingestion, Schema Evolution & Database-to-Lakehouse Pipelines*
-
-**Last updated: October 2026**
-
-
-
-This repository tracks notable **SaaS platforms** and **open-source projects** for **Change Data Capture (CDC)**. These tools enable organizations to stream row-level changes (inserts, updates, deletes) from operational databases into data warehouses, lakes, and downstream applications—from fully managed platforms with zero-impact agents and schema evolution to open-source engines that give teams complete control over their replication topology and infrastructure.
-
-
-
-**Examples** include Debezium, Qlik Replicate, Fivetran HVR, Striim, Estuary Flow, Arcion (Databricks), StreamSets, Hevo Data, AWS DMS, and Snowflake Streams (the category leaders in commercial and open-source space).
-
-
-
-**Open-source emphasis**: This section is expanded with every relevant project for self-hosted CDC, streaming pipelines, and open replication infrastructure. **Critical note**: The open-source CDC landscape is dominated by **Debezium** as the de facto standard for log-based capture, but **Flink CDC** has emerged as a powerful alternative that eliminates the Kafka broker requirement for database-to-lakehouse pipelines . No open-source project matches Qlik Replicate's enterprise database coverage (including mainframe) or Fivetran HVR's zero-impact agent architecture at scale.
-
-
-
-Contributions welcome! Open a PR to add/update entries. Keep descriptions factual and link to official sites.
-
-
-
-## Table of Contents
-
-- [SaaS/Hosted Platforms](#saas-hosted-platforms)
-
-- [Open-Source GitHub Projects](#open-source-github-projects)
-
-- [How to Contribute](#how-to-contribute)
-
-- [Disclaimer](#disclaimer)
-
-
-
-## SaaS/Hosted Platforms
-
-
-
-- **[Qlik Replicate](https://www.qlik.com/)**
-
-  **Enterprise CDC and replication platform** with broad source support including SAP and mainframe systems. **Pricing**: Quote-only; no published pricing . **Free tier**: None. **Best for**: enterprises needing high-volume CDC from legacy systems into Qlik analytics or other targets—**trade-off**: complex setup and unclear error reporting noted by users .
-
-
-
-- **[Fivetran HVR](https://www.fivetran.com/)**
-
-  **Real-time CDC replication** with zero-impact agent architecture. HVR captures changes directly from database transaction logs, maintaining full transactional integrity with minimal load on source systems. **Features**: HVR Hub (central brain), source/target locations, channels for pipeline definitions, agents placed close to source databases to read logs locally and encrypt data before transmission . **Pricing**: Quote-only. **Free tier**: None. **Best for**: enterprises needing low-impact, high-volume replication from Oracle, SQL Server, PostgreSQL, and SAP HANA into cloud warehouses—**trade-off**: enterprise pricing and deployment complexity.
-
-
-
-- **[Striim](https://www.striim.com/)**
-
-  **Unified data integration and streaming platform** with real-time CDC. **Pricing**: **Usage-based**: events from $100/million, vCPU from $0.50/hour, data transfer $0.10/GB in/out. **License-based**: per-core pricing with no data limits . Minimum 1-year contract. **Free tier**: Trial available. **Best for**: teams wanting a unified streaming platform for CDC plus analytics—**trade-off**: event-based pricing can escalate with high-frequency updates.
-
-
-
-- **[Estuary Flow](https://estuary.dev/)**
-
-  **Streaming data pipeline platform** with CDC capabilities. **Pricing**: **$0.50/GB** for data volume (captured + delivered); **$100/month per connector instance** for first 6, **$50/month** thereafter; first 10 GB and 2 connectors free . **Free tier**: Yes, 10 GB/month and 2 connectors. **Best for**: teams wanting transparent, usage-based pricing for CDC pipelines—**trade-off**: data volume is billed on both capture and delivery, doubling effective cost per GB moved.
-
-
-
-- **[Arcion (Databricks)](https://www.databricks.com/)**
-
-  **Real-time enterprise data replication** acquired by Databricks in 2023 for **over $100 million** . **Features**: Zero-impact, agentless CDC pipelines; connectors for 20+ enterprise databases; low-latency replication with built-in HA and schema evolution . **Pricing**: Now integrated into Databricks; quote-only. **Free tier**: None. **Best for**: Databricks customers wanting native CDC ingestion into the lakehouse—**trade-off**: ecosystem lock-in; standalone Arcion no longer available.
-
-
-
-- **[StreamSets](https://streamsets.com/)** (IBM)
-
-  **Smart streaming data pipelines** with graphical interface. **Pricing**: Starting at **$1,000/month** . **Free tier**: None. **Best for**: teams wanting visual pipeline design for hybrid and multicloud CDC—**trade-off**: premium pricing for a visual-first approach.
-
-
-
-- **[Hevo Data](https://hevodata.com/)**
-
-  **No-code ETL/ELT with real-time CDC**. **Pricing**: Starting at **$239/month**; transparent pricing with free tier . **Free tier**: Yes, 14-day trial. **Best for**: teams wanting simple, no-code CDC setup with 150+ connectors—**trade-off**: fewer connectors than Fivetran; simpler transformation capabilities.
-
-
-
-- **[AWS Database Migration Service (DMS)](https://aws.amazon.com/dms/)**
-
-  **Managed database migration and CDC** within AWS. **Pricing**: Instance-based or Serverless (DCU-based); storage ($0.08–$0.10/GB-month) and cross-AZ/region transfer costs apply . **Free tier**: AWS Free Tier applies to some usage. **Best for**: AWS-centric organizations migrating to RDS, Aurora, or Redshift with ongoing CDC—**trade-off**: requires careful instance sizing; replication lag can creep if undersized.
-
-
-
-- **[Snowflake Streams](https://www.snowflake.com/)**
-
-  **Native CDC within Snowflake** using stream objects that track changes to tables. **Pricing**: Consumption-based (Snowflake credits). **Free tier**: Trial credits available. **Best for**: Snowflake customers wanting CDC for transformations within the warehouse—**not** a database-to-warehouse replication tool.
-
-
-
-## Open-Source GitHub Projects
-
-
-
-- **[Debezium](https://github.com/debezium/debezium)**
-
-  **Open source distributed platform for change data capture** (Apache 2.0) — **the de facto standard for log-based CDC**, with **18 source connectors and 25 sink connectors** . **Features**: Captures row-level changes from MySQL, PostgreSQL, MongoDB, Oracle, SQL Server, Db2, Cassandra, and more; streams changes into Kafka topics; **Kafka Connect compatible**—runs in a Connect cluster with horizontal scaling, automatic task rebalancing, and durable offsets stored in Kafka; **Single Message Transforms** for filtering and routing; Schema Registry integration for Avro/JSON/Protobuf; snapshot + incremental switching with exactly-once semantics (overlap deduplication) . **Tech stack**: Java. **Deploy**: Kafka Connect cluster (self-hosted or managed like MSK Connect) . **Trade-off**: **Requires Kafka**—adds operational overhead and infrastructure cost. Snapshot of large tables can create binlog backlog. Filtering on row values requires custom SMTs (Groovy/JavaScript scripting engine must be installed, with security implications) . **Best for**: teams with existing Kafka infrastructure or multi-consumer fanout requirements—the most mature, widely deployed open-source CDC platform with a proven track record at enterprise scale.
-
-
-
-- **[Apache Flink CDC](https://github.com/apache/flink-cdc)**
-
-  **Streaming ELT with CDC directly into Flink** (Apache 2.0) — **the most significant CDC architectural advance of 2024–2026**, eliminating the Kafka broker for database-to-lakehouse pipelines . **Features**: **Flink reads the database binlog itself** (embeds Debezium for MySQL, PostgreSQL, Oracle, MongoDB, SQL Server, Db2, Vitess, and more); **declarative YAML pipelines**—capture, transform, and route in one job; **SQL-like filtering before events are written** (transforms support computed columns, built-in functions, UDFs); **exactly-once semantics** with checkpoint-based recovery; consistent initial snapshot with seamless switch to incremental . **Tech stack**: Java (Flink). **Deploy**: Self-hosted Flink cluster. **Trade-off**: **No Kafka broker means no multi-consumer fanout**—downstream consumers must read from the destination (e.g., Iceberg table) rather than a topic. Best for point-to-point database-to-lakehouse sync where minute-level latency is acceptable; **sub-second latency or multiple independent consumers still require Kafka** . **Best for**: teams building database-to-Iceberg/Paimon lakehouse pipelines without Kafka overhead, or teams wanting filtering and transformation in a single Flink job before storage costs are incurred.
-
-
-
-- **[Apache Paimon CDC](https://github.com/apache/paimon)**
-
-  **Streaming lakehouse platform with native CDC ingestion** (Apache 2.0) — **a specialized CDC integration for Paimon tables**, part of the broader Paimon lakehouse project. **Features**: Native CDC ingestion from MySQL, PostgreSQL, Kafka, and other sources into Paimon tables; supports streaming upserts and changelog producers; designed for real-time lakehouse architectures. **Tech stack**: Java (Flink). **Deploy**: Self-hosted (Flink + Paimon). **Trade-off**: **Paimon-specific**—it ingests into Paimon tables, not Iceberg or Hudi. Smaller community than Debezium or Flink CDC. **Best for**: teams using Apache Paimon as their lakehouse table format wanting native CDC ingestion.
-
-
-
-### Additional Strong Open-Source Options
-
-
-
-- **Kafka Connect JDBC Source** — Query-based CDC via polling `WHERE updated_at > last_checkpoint`. **Note**: **Does not capture deletes**; depends on monotonic timestamp columns; periodic source database load. **Production recommendation: avoid unless binlog access is impossible** . **Best for**: legacy systems that cannot enable transaction log access.
-
-- **Debezium Server** — Standalone Debezium runtime without Kafka Connect. Supports sinks like Iceberg (community). **Note**: Row-level filtering still requires SMTs; no Kafka ecosystem. **Best for**: teams wanting Debezium's capture engine without Kafka Connect infrastructure.
-
-
-
-**Frameworks for building custom systems**: Combine **Debezium** for multi-consumer fanout with Kafka, **Flink CDC** for direct database-to-lakehouse pipelines without Kafka overhead, and **Paimon CDC** for Paimon-specific ingestion—creating a CDC stack matched to each team's latency and architectural requirements. **None of these match Qlik Replicate's mainframe/SAP coverage or Fivetran HVR's zero-impact agent architecture**; those require commercial platforms.
-
-
-
-## How to Contribute
-
-
-
-1. Fork the repo.
-
-2. Add/edit entries in `README.md` (follow existing format).
-
-3. Include: name, link, 1–2 sentence description, license (for open-source), and whether it's SaaS or open-source.
-
-4. Submit PR with a short explanation.
-
-
-
-Star the repo if you find it useful!
-
-
-
-## Disclaimer
-
-
-
-- This is a **community-curated** list — not exhaustive and not an endorsement.
-
-- CDC platforms handling database changes and replication must comply with data protection regulations (GDPR, CCPA, etc.) and implement appropriate access controls for replicated data.
-
-- **The "log-based" vs. "query-based" vs. "trigger-based" distinction is critical.** **Log-based CDC** (Debezium, Flink CDC, Qlik Replicate, HVR, AWS DMS) reads database transaction logs—it is the **production standard**: minimal source impact, captures deletes, preserves order . **Query-based CDC** (Kafka Connect JDBC Source) polls with `WHERE updated_at > last_checkpoint`—it **cannot capture deletes**, depends on monotonic time columns, and adds periodic load to source databases. **Production recommendation: avoid query-based CDC unless binlog access is impossible** . **Trigger-based CDC** creates triggers in the source database—**rare in production** due to performance impact and maintenance burden. **Choose log-based CDC for any production workload.**
-
-- **Debezium is the most mature and widely deployed open-source CDC platform.** With 18 source and 25 sink connectors under Apache 2.0, it is the foundation of most open-source CDC stacks . **The trade-off**: it requires Kafka, which adds operational overhead and cost. **Flink CDC eliminates that requirement** for database-to-lakehouse pipelines by reading binlogs directly and writing to Iceberg/Paimon—but loses multi-consumer fanout and sub-second latency .
-
-- **Flink CDC is the architectural innovation to watch.** Druva's production case study (October 2026) demonstrates why: they replaced Debezium + Kafka with Flink CDC writing directly to Iceberg, filtering out ~90% of noise (backup job progress updates) before it hit storage . **For teams building database-to-lakehouse pipelines where minute-level latency is acceptable and Kafka is not already in place, Flink CDC is the pragmatic choice.**
-
-- **Arcion is no longer a standalone product.** Databricks acquired it for over $100 million in 2023 and integrated its CDC connectors into the lakehouse platform . **Do not evaluate Arcion as an independent option**—it is now a Databricks feature.
-
-- **Pricing opacity varies.** Qlik Replicate and Fivetran HVR are quote-only . Striim publishes usage-based and license-based tiers . Estuary publishes transparent per-GB and per-connector pricing . Hevo publishes starting at $239/month . AWS DMS is instance/DCU-based with storage and transfer costs . StreamSets starts at $1,000/month . **Validate with direct vendor conversations against your actual change volume and latency requirements.**
-
-- Self-hosted open-source solutions require proper infrastructure (Kafka Connect cluster or Flink cluster, source database log access, schema registry), security hardening, and ongoing maintenance. **CDC pipelines carry business-critical data changes**—ensure your deployment includes monitoring for replication lag, schema change handling, and exactly-once guarantees before relying on it for production analytics.
-
-
+# Awesome Change Data Capture (CDC) ⚡
+
+<div align="center">
+
+![Awesome Change Data Capture Banner](assets/banner.svg)
+
+<p align="center">
+  <a href="https://github.com/ishandutta2007/Awesome-Awesome-Awesome"><img src="https://img.shields.io/badge/Awesome-%E2%9C%94-blueviolet?style=flat-square&logo=github" alt="Awesome"/></a>
+  <a href="https://discord.gg/jc4xtF58Ve"><img src="https://img.shields.io/badge/Discord-5865F2?style=for-the-badge&logo=discord&logoColor=white" alt="Discord" /></a>
+  <a href="https://github.com/ishandutta2007/Awesome-Change-Data-Capture-CDC/stargazers"><img src="https://img.shields.io/github/stars/ishandutta2007/Awesome-Change-Data-Capture-CDC?style=social" alt="GitHub Stars" /></a>
+  <a href="https://github.com/ishandutta2007/Awesome-Change-Data-Capture-CDC/network/members"><img src="https://img.shields.io/github/forks/ishandutta2007/Awesome-Change-Data-Capture-CDC?style=social" alt="GitHub Forks" /></a>
+  <a href="https://github.com/ishandutta2007/Awesome-Change-Data-Capture-CDC/blob/main/LICENSE"><img src="https://img.shields.io/badge/License-Apache_2.0-blue.svg?style=flat-square" alt="License" /></a>
+  <a href="https://github.com/ishandutta2007"><img alt="GitHub followers" src="https://img.shields.io/github/followers/ishandutta2007?label=Follow" /></a>
+</p>
+
+**A comprehensive, curated collection of Change Data Capture (CDC) SaaS solutions and open-source GitHub projects.**  
+*Empowering data engineering teams with high-throughput log-based replication, real-time streaming ingestion, continuous ETL, schema evolution, and database-to-lakehouse synchronization.*
 
 ---
 
+🌟 **Star this repository if you find it helpful!** 🌟
 
+</div>
 
-**Made for data engineers, platform teams, and organizations building transparent change data capture solutions.**
+## 📑 Table of Contents
+- [📖 Sector Overview & Market Dynamics](#-sector-overview--market-dynamics)
+- [☁️ SaaS & Hosted Platforms](#️-saas--hosted-platforms)
+- [🔓 Open-Source GitHub Projects](#-open-source-github-projects)
+- [💡 Architectural Patterns & Comparisons](#-architectural-patterns--comparisons)
+- [🤝 How to Contribute](#-how-to-contribute)
+- [💖 Support](#-support)
+- [📈 Star History](#-star-history)
+- [⚖️ Disclaimer](#️-disclaimer)
 
-Let's make Change Data Capture more open, data-driven, and replication-reliable.
+---
+
+## 📖 Sector Overview & Market Dynamics
+
+The global Change Data Capture (CDC) market is estimated at **$2.5 billion** (expanding at an estimated ~25% CAGR toward the broader $10.5+ billion data replication and $15+ billion real-time data integration markets). The sector exhibits **moderate fragmentation with high concentration at the legacy enterprise core**: established cloud hyperscalers and legacy infrastructure providers dominate high-volume mainframe/enterprise relational workloads, while modern cloud-native SaaS platforms, specialized lakehouse ingestion engines, and developer-first open-source frameworks compete intensely for real-time streaming pipelines and AI-readiness architectures.
+
+---
+
+## ☁️ SaaS & Hosted Platforms
+
+The following table evaluates top commercial and managed Change Data Capture platforms, sorted in descending order by company scale (market valuation / parent company enterprise valuation):
+
+| Platform / Vendor | Company Valuation / Scale | Starting Pricing | Free Tier / Free Trial Limits | Best For / Key Features |
+| :--- | :--- | :--- | :--- | :--- |
+| **[AWS Database Migration Service (DMS)](https://aws.amazon.com/dms/)** | **~$2.1T+** (Amazon Market Cap) | **$0.020–$0.030/hour** (~$15–$22/month baseline `dms.t3.micro` instance) + storage & cross-AZ egress | **750 hours/month** single-AZ `dms.t3.micro` + 50 GB SSD storage for 12 months (or $100 initial usage credits for newer AWS accounts) | Native migration and continuous log-based CDC replication across AWS databases (RDS, Aurora, Redshift, S3) |
+| **[StreamSets (IBM)](https://streamsets.com/)** | **~$210B+** (IBM Market Cap; acquired for **$2.3B**) | Starting at **$1,050/VPC/month** (Team tier starting ~$4,200/month for ~12-20 pipelines) | **30-day free trial** (Full platform functionality with drag-and-drop pipeline designer; no permanent free tier) | Visual hybrid/multicloud continuous data integration, complex transformation, and drift handling for enterprise data teams |
+| **[Arcion (Databricks)](https://www.databricks.com/)** | **~$134B–$190B** (Databricks Valuation, $4.8B+ ARR; acquired for **$100M+**) | Integrated into Lakeflow Connect starting at **$0.15/DBU** (Classic) / **$0.35/DBU** (Serverless) | **100 DBUs free per day per workspace** for Lakeflow Connect (~100M records/day ingestion limit); 14-day Databricks trial | Real-time agentless CDC from 20+ operational databases (Oracle, Postgres, MySQL) directly into the Databricks Lakehouse |
+| **[Snowflake Streams](https://www.snowflake.com/)** | **~$45B–$50B** (Snowflake Market Cap, $3B+ ARR) | Pay-as-you-go consumption starting at **$2.00/credit** (Standard Edition) to **$3.00/credit** (Enterprise) | **$400 in free trial credits** valid for up to **30 days** (No credit card required; no permanent free tier) | In-warehouse CDC tracking table modifications (inserts, updates, deletes) for continuous medallion transformations |
+| **[Qlik Replicate](https://www.qlik.com/)** | **~$10B** (Private PE Valuation via Thoma Bravo, ~$750M ARR) | Annual subscription quote based on source/target CPU cores and volume (Enterprise pricing) | **14-day free trial** for Qlik Cloud Data Integration; custom 14–30 day PoC license for client-managed engine | Mission-critical enterprise database and legacy replication from SAP, mainframes, and Oracle into modern analytics stores |
+| **[Fivetran HVR](https://www.fivetran.com/)** | **~$5.6B** (Series D Valuation, $300M+ ARR) | Pay-as-you-go starting at **$5.00/month connection minimum** (~$500 per 1M MAR on Standard Plan) | **500,000 Free MAR/month forever** (up to 5,000 model runs/month) + **14-day free trial** for every new connector | High-throughput, log-based replication with zero-impact distributed agent architecture for enterprise workloads |
+| **[Striim](https://www.striim.com/)** | **~$250M–$500M** (Valuation, $108M funding raised) | Starting at **$0.60/vCPU-hour** + **$0.50 per 1M events** processed (Striim Cloud) | **14-day free trial**; Developer community tier up to **25 million events/month** | Unified real-time data streaming, in-flight stream processing, and multi-source CDC into cloud targets |
+| **[Estuary Flow](https://estuary.dev/)** | **~$68M** (Series A Valuation, $17M funding raised) | **$0.50/GB** volume (capture + delivery) + **$100/month** per connector instance (first 6, then $50/month) | **10 GB/month data volume and 2 connector instances free forever**; free cloud trial | Low-latency streaming SQL transformations with millisecond real-time CDC data synchronization |
+| **[Hevo Data](https://hevodata.com/)** | **~$43M funding raised** (~$44M–$47M ARR) | Starter plan starting at **$239–$299/month** (5 million events included) | **1,000,000 events/month free forever** on 50+ free connectors; **14-day free trial** with unlimited events | No-code continuous ETL/ELT pipelines with automated schema mapping and built-in failure recovery |
+
+---
+
+## 🔓 Open-Source GitHub Projects
+
+The following list contains high-performance open-source Change Data Capture engines, connectors, and streaming replication platforms, ranked in descending order by GitHub Stars:
+
+- **[Airbyte](https://github.com/airbytehq/airbyte)** [![Stars](https://img.shields.io/github/stars/airbytehq/airbyte?style=social&color=white)](https://github.com/airbytehq/airbyte/stargazers)
+  - **Overview**: Universal open-source ELT data integration platform with an extensive library of 350+ connectors.
+  - **CDC Capabilities**: Native log-based CDC connectors powered under the hood by embedded Debezium engines for Postgres, MySQL, Oracle, and SQL Server.
+  - **License**: Elastic License 2.0 / MIT.
+  - **Stack**: Java, Python.
+
+- **[Debezium](https://github.com/debezium/debezium)** [![Stars](https://img.shields.io/github/stars/debezium/debezium?style=social&color=white)](https://github.com/debezium/debezium/stargazers)
+  - **Overview**: The battle-tested, de facto open-source industry standard for distributed log-based Change Data Capture.
+  - **CDC Capabilities**: Inspects transaction logs across MySQL, PostgreSQL, MongoDB, Oracle, Microsoft SQL Server, IBM Db2, and Cassandra; streams row-level delta events directly to Apache Kafka topics or Kafka Connect runtimes.
+  - **License**: Apache-2.0.
+  - **Stack**: Java.
+
+- **[Redpanda Connect](https://github.com/redpanda-data/connect)** *(formerly Benthos)* [![Stars](https://img.shields.io/github/stars/redpanda-data/connect?style=social&color=white)](https://github.com/redpanda-data/connect/stargazers)
+  - **Overview**: High-performance, memory-efficient stream processor and pipeline orchestrator capable of synthesizing, routing, and transforming streaming data.
+  - **CDC Capabilities**: Connects to transaction logs and changelog streams with lightweight stateless execution and instant deployment.
+  - **License**: Apache-2.0.
+  - **Stack**: Go.
+
+- **[Apache Flink CDC](https://github.com/apache/flink-cdc)** [![Stars](https://img.shields.io/github/stars/apache/flink-cdc?style=social&color=white)](https://github.com/apache/flink-cdc/stargazers)
+  - **Overview**: Next-generation streaming ELT architecture that reads database transaction logs directly within Apache Flink jobs.
+  - **CDC Capabilities**: Eliminates the mandatory Kafka message broker layer for database-to-lakehouse syncs (Iceberg, Paimon, Hudi); supports declarative YAML data pipelines, exactly-once snapshot-to-incremental transitions, and upstream SQL filtering.
+  - **License**: Apache-2.0.
+  - **Stack**: Java.
+
+- **[Zendesk Maxwell](https://github.com/zendesk/maxwell)** [![Stars](https://img.shields.io/github/stars/zendesk/maxwell?style=social&color=white)](https://github.com/zendesk/maxwell/stargazers)
+  - **Overview**: Lightweight application daemon reading MySQL binlogs and producing JSON change records.
+  - **CDC Capabilities**: Streams row-level MySQL events directly to Kafka, Kinesis, RabbitMQ, Redis, Google Cloud Pub/Sub, or standard output with low operational overhead.
+  - **License**: Apache-2.0.
+  - **Stack**: Java.
+
+- **[LinkedIn Databus](https://github.com/linkedin/databus)** [![Stars](https://img.shields.io/github/stars/linkedin/databus?style=social&color=white)](https://github.com/linkedin/databus/stargazers)
+  - **Overview**: Proven source-agnostic distributed change data capture system built by LinkedIn for sub-millisecond replication.
+  - **CDC Capabilities**: Provides partition-aware transaction-ordered stream delivery with rewindable consumer offset positioning.
+  - **License**: Apache-2.0.
+  - **Stack**: Java.
+
+- **[Apache Paimon](https://github.com/apache/paimon)** [![Stars](https://img.shields.io/github/stars/apache/paimon?style=social&color=white)](https://github.com/apache/paimon/stargazers)
+  - **Overview**: Unified streaming lakehouse table format tailored for real-time streaming updates and high-speed data ingestion.
+  - **CDC Capabilities**: Native streaming changelog production, real-time upsert mechanics, and automated compaction for log-based CDC streams.
+  - **License**: Apache-2.0.
+  - **Stack**: Java.
+
+- **[PeerDB](https://github.com/PeerDB-io/peerdb)** [![Stars](https://img.shields.io/github/stars/PeerDB-io/peerdb?style=social&color=white)](https://github.com/PeerDB-io/peerdb/stargazers)
+  - **Overview**: Postgres-first CDC engine designed for ultra-fast replication into Snowflake, ClickHouse, BigQuery, and Kafka.
+  - **CDC Capabilities**: Delivers up to 10x faster Postgres replication with native catalog parsing and parallel snapshotting.
+  - **License**: Apache-2.0.
+  - **Stack**: Go.
+
+- **[Confluent Schema Registry](https://github.com/confluentinc/schema-registry)** [![Stars](https://img.shields.io/github/stars/confluentinc/schema-registry?style=social&color=white)](https://github.com/confluentinc/schema-registry/stargazers)
+  - **Overview**: Centralized schema management service providing compatible Avro, JSON Schema, and Protobuf governance for streaming pipelines.
+  - **CDC Capabilities**: Guarantees deterministic schema evolution and type safety across heterogeneous CDC event producers and consumers.
+  - **License**: Confluent Community License / Apache-2.0.
+  - **Stack**: Java.
+
+- **[Apache Cloudberry](https://github.com/apache/cloudberry)** [![Stars](https://img.shields.io/github/stars/apache/cloudberry?style=social&color=white)](https://github.com/apache/cloudberry/stargazers)
+  - **Overview**: Advanced open-source massively parallel processing (MPP) analytical database based on PostgreSQL.
+  - **CDC Capabilities**: High-throughput parallel CDC stream ingestion and real-time upserts from external databases.
+  - **License**: Apache-2.0.
+  - **Stack**: C / C++.
+
+- **[Skeema](https://github.com/skeema/skeema)** [![Stars](https://img.shields.io/github/stars/skeema/skeema?style=social&color=white)](https://github.com/skeema/skeema/stargazers)
+  - **Overview**: Declarative schema management system for MySQL and MariaDB with online DDL execution support.
+  - **CDC Capabilities**: Integrates alongside CDC pipelines to track, plan, and automate schema evolution without breaking replication topologies.
+  - **License**: Apache-2.0.
+  - **Stack**: Go.
+
+- **[Estuary Flow Runtime](https://github.com/estuary/flow)** [![Stars](https://img.shields.io/github/stars/estuary/flow?style=social&color=white)](https://github.com/estuary/flow/stargazers)
+  - **Overview**: Open-source core engine powering Estuary Flow for real-time streaming ELT and CDC connector dispatch.
+  - **CDC Capabilities**: Unifies log-based capture with sub-second millisecond replication sinks.
+  - **License**: Apache-2.0 / BSL.
+  - **Stack**: Rust, TypeScript.
+
+- **[Debezium Server](https://github.com/debezium/debezium-server)** [![Stars](https://img.shields.io/github/stars/debezium/debezium-server?style=social&color=white)](https://github.com/debezium/debezium-server/stargazers)
+  - **Overview**: Standalone runner for Debezium source connectors without requiring an underlying Kafka Connect cluster.
+  - **CDC Capabilities**: Streams transaction events directly to Amazon Kinesis, Google Cloud Pub/Sub, Azure Event Hubs, Redis, Pulsar, or Apache Iceberg sinks.
+  - **License**: Apache-2.0.
+  - **Stack**: Java.
+
+- **[Kafka Connect JDBC](https://github.com/confluentinc/kafka-connect-jdbc)** [![Stars](https://img.shields.io/github/stars/confluentinc/kafka-connect-jdbc?style=social&color=white)](https://github.com/confluentinc/kafka-connect-jdbc/stargazers)
+  - **Overview**: Standard query-based polling connector for JDBC-compatible databases.
+  - **CDC Capabilities**: Polls tables based on incrementing IDs and timestamp columns (legacy alternative when binlog/WAL transaction logs are inaccessible).
+  - **License**: Confluent Community License.
+  - **Stack**: Java.
+
+---
+
+## 💡 Architectural Patterns & Comparisons
+
+Choosing the appropriate Change Data Capture mechanism is the most critical architectural decision in data engineering pipelines:
+
+### 1. Log-Based vs. Query-Based vs. Trigger-Based CDC
+* **Log-Based CDC (Recommended for Production)**:
+  * *Engines*: Debezium, Flink CDC, PeerDB, Qlik Replicate, Fivetran HVR.
+  * *Mechanism*: Directly reads database write-ahead logs (WAL) or binary logs (binlog).
+  * *Advantages*: Zero impact on production queries, accurately captures hard `DELETE` operations, preserves full transactional serialization.
+* **Query-Based CDC (Fallback Only)**:
+  * *Engines*: Kafka Connect JDBC Source.
+  * *Mechanism*: Polls databases with polling queries (`WHERE updated_at > :checkpoint`).
+  * *Disadvantages*: Cannot detect deleted rows, places heavy recurring load on databases, risks duplicate data on timestamp collisions.
+* **Trigger-Based CDC (Avoid for High-Throughput)**:
+  * *Mechanism*: Attaches SQL triggers to write delta changes into shadow audit tables.
+  * *Disadvantages*: Increases write latency by 2x-5x on application transactions; creates database maintenance locks.
+
+### 2. Multi-Consumer Fanout vs. Direct Lakehouse Sync
+```text
+[Operational Database] 
+         │ (WAL / Binlog)
+         ▼
+┌───────────────────┐               ┌────────────────────────┐
+│  Debezium / Kafka ├──────────────►│ 1 to N Consumer Topics │ (Microservices, Caching, Analytics)
+└───────────────────┘               └────────────────────────┘
+         ▲
+         │ (Alternative Direct Ingestion)
+┌───────────────────┐               ┌────────────────────────┐
+│     Flink CDC     ├──────────────►│ Iceberg / Paimon Tables│ (Zero-Kafka overhead lakehouse)
+└───────────────────┘               └────────────────────────┘
+```
+
+---
+
+## 🤝 How to Contribute
+
+Contributions are warmly welcomed! Please follow these steps to add or update tools:
+
+1. 🍴 **Fork** this repository.
+2. 🌿 Create a descriptive branch: `git checkout -b add-my-cdc-tool`.
+3. ✏️ Update `README.md` adhering strictly to our markdown format:
+   - For SaaS products: include starting tier prices and exact free tier/trial limits.
+   - For Open-Source: include the repository link, star badge, license, and primary capabilities.
+4. 🚀 Submit a Pull Request with a clear summary of your changes.
+
+---
+
+## 💖 Support
+
+If this repository assisted you in evaluating your streaming infrastructure, please consider showing your support:
+- ⭐ **Star** this repository on GitHub!
+- 🍴 **Fork** and share it with your data engineering peers!
+- ☕ **Sponsor**: Buy us a coffee and support continued maintenance at the [Sponsor Dashboard](https://github.com/sponsors/ishandutta2007)!
+
+---
+
+## 📈 Star History
+
+[![Star History Chart](https://star-history.dera.page/svg?repos=ishandutta2007/Awesome-Change-Data-Capture-CDC&type=date&legend=top-left)](https://star-history.dera.page/#ishandutta2007/Awesome-Change-Data-Capture-CDC&type=date&legend=top-left)
+
+---
+
+## ⚖️ Disclaimer
+
+* This repository is a community-curated technical index and does not represent an endorsement.
+* Change Data Capture involves continuous streaming of enterprise transactional data: ensure your architecture complies with all data privacy regulations (GDPR, HIPAA, CCPA) and implements stringent end-to-end encryption.
+* Vendor pricing and tier offerings are subject to frequent changes; always cross-reference official vendor documentation before making procurement decisions.
