@@ -7,7 +7,7 @@
 <p align="center">
   <a href="https://github.com/ishandutta2007/Awesome-Awesome-Awesome"><img src="https://img.shields.io/badge/Awesome-%E2%9C%94-blueviolet?style=flat-square&logo=github" alt="Awesome"/></a>
   <a href="https://discord.gg/jc4xtF58Ve"><img src="https://img.shields.io/badge/Discord-5865F2?style=for-the-badge&logo=discord&logoColor=white" alt="Discord" /></a>
-  <a href="https://github.com/ishandutta2007/Awesome-Change-Data-Capture-CDC/stargazers"><img src="https://img.shields.io/github/stars/ishandutta2007/Awesome-Change-Data-Capture-CDC?style=social" alt="GitHub Stars" /></a>
+  <a href="https://github.com/ishandutta2007/Awesome-Change-Data-Capture-CDC/stargazers"><img src="https://img.shields.io/github/stars/ishandutta2007/Awesome-Change-Data-Capture-CDC?style=social" alt="GitHub_Stars" /></a>
   <a href="https://github.com/ishandutta2007/Awesome-Change-Data-Capture-CDC/network/members"><img src="https://img.shields.io/github/forks/ishandutta2007/Awesome-Change-Data-Capture-CDC?style=social" alt="GitHub Forks" /></a>
   <a href="https://github.com/ishandutta2007/Awesome-Change-Data-Capture-CDC/blob/main/LICENSE"><img src="https://img.shields.io/badge/License-Apache_2.0-blue.svg?style=flat-square" alt="License" /></a>
   <a href="https://github.com/ishandutta2007"><img alt="GitHub followers" src="https://img.shields.io/github/followers/ishandutta2007?label=Follow" /></a>
@@ -60,7 +60,7 @@ The following table evaluates top commercial and managed Change Data Capture pla
 
 ## 🔓 Open-Source GitHub Projects
 
-The following list contains high-performance open-source Change Data Capture engines, connectors, and streaming replication platforms, ranked in descending order by GitHub Stars:
+The following list contains high-performance open-source Change Data Capture engines, connectors, and streaming replication platforms, ranked in descending order by GitHub_Stars:
 
 - **[Airbyte](https://github.com/airbytehq/airbyte)** [![Stars](https://img.shields.io/github/stars/airbytehq/airbyte?style=social&color=white)](https://github.com/airbytehq/airbyte/stargazers)
   - **Overview**: Universal open-source ELT data integration platform with an extensive library of 350+ connectors.
@@ -190,7 +190,7 @@ Contributions are warmly welcomed! Please follow these steps to add or update to
 2. 🌿 Create a descriptive branch: `git checkout -b add-my-cdc-tool`.
 3. ✏️ Update `README.md` adhering strictly to our markdown format:
    - For SaaS products: include starting tier prices and exact free tier/trial limits.
-   - For Open-Source: include the repository link, star badge, license, and primary capabilities.
+   - For Open-Source: include the repository link, Stars_Badge, license, and primary capabilities.
 4. 🚀 Submit a Pull Request with a clear summary of your changes.
 
 ---
